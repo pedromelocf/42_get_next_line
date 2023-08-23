@@ -6,22 +6,22 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:19 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/08/22 13:04:56 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/08/22 22:31:36 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 char	*get_next_line(int fd)
 {
-	static char	*file_content;
-	char		*line;
+	char		line[BUFFER_SIZE];
 	size_t 		test;
+	size_t	test1;
 
-	test = 5;
-	file_content = read(fd, BUFFER_SIZE, 100);
-	line = ft_strlcpy(line, file_content, test);
-	line[BUFFER_SIZE] = '\0';
-	printf("Conteudo do arquivo : %s", line);
-	return (line);
+	test = BUFFER_SIZE;
+	test1 = read(fd, line, test);
+	line[test] = '\0';
+	printf("Conteudo do arquivo : %s\n", line);
+	return (0);
 }
