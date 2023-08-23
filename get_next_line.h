@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:44 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/08/23 14:30:13 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/08/23 19:28:14 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 5
+#  define BUFFER_SIZE 22
 # endif
 
 # include <stdlib.h>
