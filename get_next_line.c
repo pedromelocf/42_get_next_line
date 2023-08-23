@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:19 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/08/23 11:03:22 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:50:48 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ char	*get_next_line(int fd)
 
 	read_buffer = read(fd, temp_string_buffer, BUFFER_SIZE);
 
-	printf("Conteudo do arquivo : %s\n", temp_string_buffer);
-	printf("Conteudo do arquivo : %ld\n\n", read_buffer);
+	if (!(ft_strchr(temp_string_buffer, '\n')))
+		actual_line[0] = ft_substr(temp_string_buffer, 0, BUFFER_SIZE);
+	// printf("Conteudo da variável temporária : %s\n", temp_string_buffer);
+	// printf("Conteudo da variável estática : %s\n", actual_line[0]);
+	// printf("Tamanho de bytes lidos  : %ld\n\n", read_buffer);
 	return (0);
 }
