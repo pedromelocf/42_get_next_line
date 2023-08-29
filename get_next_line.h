@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:44 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/08/23 19:28:14 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/08/29 10:32:31 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 22
+#  define BUFFER_SIZE 1
 # endif
 
 # include <stdlib.h>
@@ -24,5 +24,8 @@
 
 char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
+char	*ft_strdup(const char *s);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+void	*ft_calloc(size_t nmemb, size_t size);
 
 #endif
