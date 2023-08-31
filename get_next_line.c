@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:19 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/08/31 14:42:46 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/08/31 19:54:03 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,26 @@ char	*get_next_line(int fd)
 		return (NULL);
 	actual_line_content = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (next_line_content != NULL)
-		actual_line_content = strdup(next_line_content);
+	{
+		actual_line_content = ft_strdup(next_line_content);
+		free(next_line_content);
+	}
 	while (ft_strchr(actual_line_content, '\n') == NULL)
 	{
 		buf = (char *)malloc(sizeof(char) * BUFFER_SIZE);
 		if (read(fd, buf, BUFFER_SIZE) <= 0)
+		{
+			free(buf);
+			free(actual_line_content);
 			return (NULL);
+		}
 		new_line = ft_strchr(buf, '\n');
 		actual_line_content = ft_strjoin(actual_line_content, buf);
 		if (new_line)
 		{
 			*new_line = '\0';
 			next_line_content = ft_strdup(new_line + 1);
+			free(buf);
 			break;
 		}
 		else
