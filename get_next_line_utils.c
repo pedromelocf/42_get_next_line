@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:17 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/08/29 10:32:07 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/08/30 22:11:49 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,44 +52,30 @@ char	*ft_strdup(const char *s)
 	return (newstring);
 }
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t		counter;
-	char		*ptrdest;
-	const char	*ptrsrc;
+	char	*newstring;
+	size_t	counter;
+	size_t	s1_len;
+	size_t	s2_len;
 
+	s2_len = 0;
+	s1_len = strlen(s1);
+	while(s2[s2_len] && s2[s2_len] != '\n')
+		s2_len++;
 	counter = 0;
-	ptrdest = dest;
-	ptrsrc = src;
-	if (ptrdest == NULL && ptrsrc == NULL)
+	newstring = (char *)malloc(sizeof(char) * s1_len + s2_len + 1);
+	if (newstring == NULL)
 		return (NULL);
-	while (counter < n)
+	while (counter < s1_len + s2_len)
 	{
-		ptrdest[counter] = ptrsrc[counter];
+		if (counter < s1_len)
+			newstring[counter] = s1[counter];
+		if (counter >= s1_len && counter < s1_len + s2_len)
+			newstring[counter] = s2[counter - s1_len];
 		counter++;
 	}
-	return (dest);
+	newstring[counter] = '\0';
+	return (newstring);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
-{
-	char	*array;
-	size_t	index;
-	size_t	maxint_validator;
-
-	index = 0;
-	maxint_validator = (nmemb * size);
-	if (nmemb == 0 || size == 0)
-		return (malloc(0));
-	if (maxint_validator / nmemb != size)
-		return (NULL);
-	array = (void *)malloc(size * nmemb);
-	if (array == NULL)
-		return (NULL);
-	while (index < nmemb * size)
-	{
-		array[index] = '\0';
-		index++;
-	}
-	return (array);
-}
