@@ -2,13 +2,19 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-int main (void)
+int	main(void)
 {
-	int fd;
+	char		*line;
+	int			fd;
+	int			counter;
 
 	fd = open("test.txt", O_RDONLY);
-	printf("Retorno chamada 1:\n%s\n\n", get_next_line(fd));
-	printf("Retorno chamada 2:\n%s\n", get_next_line(fd));
+	counter = 1;
+	while ((line = get_next_line(fd)) != NULL)
+	{
+		printf("Line %i : %s\n", counter++, line);
+		free(line);
+	}
 	close(fd);
-	return 0;
+	return (0);
 }

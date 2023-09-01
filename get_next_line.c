@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:19 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/01 15:01:34 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/01 15:13:04 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,13 @@ char	*get_next_line(int fd)
 	char		*actual_line_content;
 	char		*new_line;
 	char		*verified_buffer;
-	char		*test;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	actual_line_content = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (next_line_content != NULL)
 	{
-		test = ft_strdup(next_line_content);
-		strcat(actual_line_content, test);
-		free(test);
+		actual_line_content = ft_strdup(next_line_content);
 		free(next_line_content);
 	}
 	while (ft_strchr(actual_line_content, '\n') == NULL)
@@ -39,10 +36,7 @@ char	*get_next_line(int fd)
 		verified_buffer = verify_read(fd, actual_line_content);
 		if (verified_buffer == NULL)
 			return (NULL);
-		test = ft_strjoin(actual_line_content, verified_buffer);
-		free(actual_line_content);
-		actual_line_content = ft_strdup(test);
-		free(test);
+		actual_line_content = ft_strjoin(actual_line_content, verified_buffer);
 		new_line = ft_strchr(verified_buffer, '\n');
 		if (new_line)
 		{
