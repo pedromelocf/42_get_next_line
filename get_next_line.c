@@ -6,20 +6,22 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:19 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/08/31 20:19:34 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/01 14:42:40 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 char	*verify_read(int fd, char *actual_line_content);
+char	*verify_new_line(char *new_line, char *next_line_content,
+			char *verified_buffer);
 
 char	*get_next_line(int fd)
 {
 	static char	*next_line_content;
 	char		*actual_line_content;
 	char		*new_line;
-	char 		*verified_buffer;
+	char		*verified_buffer;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -38,10 +40,9 @@ char	*get_next_line(int fd)
 		new_line = ft_strchr(verified_buffer, '\n');
 		if (new_line)
 		{
-			*new_line = '\0';
-			next_line_content = ft_strdup(new_line + 1);
-			free(verified_buffer);
-			break;
+			next_line_content = verify_new_line(new_line, next_line_content,
+					verified_buffer);
+			break ;
 		}
 		else
 			free(verified_buffer);
@@ -49,9 +50,18 @@ char	*get_next_line(int fd)
 	return (actual_line_content);
 }
 
+char	*verify_new_line(char *new_line, char *next_line_content,
+		char *verified_buffer)
+{
+	*new_line = '\0';
+	next_line_content = ft_strdup(new_line + 1);
+	free(verified_buffer);
+	return (next_line_content);
+}
+
 char	*verify_read(int fd, char *actual_line_content)
 {
-	char *buf;
+	char	*buf;
 
 	buf = (char *)malloc(sizeof(char) * BUFFER_SIZE);
 	if (read(fd, buf, BUFFER_SIZE) <= 0)
