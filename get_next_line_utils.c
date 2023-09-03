@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:17 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/08/30 22:11:49 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/02 22:08:11 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,28 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)&s[i]);
 	return (NULL);
 }
+char	*ft_set_new_line(const char *s)
+{
+	char	*newstring;
+	size_t	index1;
+	size_t	index2;
 
+	index1 = 0;
+	index2 = 0;
+	while (s[index1])
+		index1++;
+	newstring = (char *)malloc(sizeof(char) * index1 + 2);
+	if (!newstring)
+		return (NULL);
+	while (index2 < index1)
+	{
+		newstring[index2] = s[index2];
+		index2++;
+	}
+	newstring[index2] = '\n';
+	newstring[index2 + 1] = '\0';
+	return (newstring);
+}
 char	*ft_strdup(const char *s)
 {
 	char	*newstring;
