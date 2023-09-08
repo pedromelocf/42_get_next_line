@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:17 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/03 00:38:50 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/08 14:13:16 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ char	*ft_join_buf(char const *s1, char const *s2)
 	size_t	s1_len;
 	size_t	s2_len;
 
+	if (!s1)
+		s1 = ft_strdup("");
+	if (!s1 || !s2)
+		return (NULL);
 	s1_len = strlen(s1);
-	while(s2[s2_len] && s2[s2_len] != '\n')
-		s2_len++;
+	s2_len = strlen(s2);
 	counter = 0;
-	newstring = (char *)malloc(sizeof(char) * s1_len + s2_len);
+	newstring = (char *)malloc(sizeof(char) * s1_len + s2_len + 1);
 	if (newstring == NULL)
 		return (NULL);
 	while (counter < s1_len + s2_len)
@@ -34,6 +37,8 @@ char	*ft_join_buf(char const *s1, char const *s2)
 			newstring[counter] = s2[counter - s1_len];
 		counter++;
 	}
+	newstring[counter] = '\0';
+	free((char *)s1);
 	return (newstring);
 }
 char	*ft_new_line(char const *s1, char const *s2)
@@ -60,6 +65,7 @@ char	*ft_new_line(char const *s1, char const *s2)
 	}
 	newstring[counter] = '\n';
 	newstring[counter + 1] = '\0';
+	free((char *)s1);
 	return (newstring);
 }
 
@@ -92,7 +98,7 @@ char	*ft_strchr(const char *s, int c)
 
 	i = 0;
 	s_len = strlen(s);
-	while (i <= s_len)
+	while (i < s_len)
 	{
 		if (s[i] == (unsigned char)c)
 			return ((char *)&s[i]);
