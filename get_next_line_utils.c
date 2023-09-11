@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:17 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/11 15:26:25 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/11 16:56:06 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,6 @@ char	*ft_join_buf(char const *s1, char const *s2)
 		s1 = ft_strdup("");
 	if (!s1 || !s2)
 		return (NULL);
-	newstring = ft_strcpy(s1, s2);
-	if (newstring == NULL)
-		return (NULL);
-	free((char *)s1);
-	return (newstring);
-}
-
-char *ft_strcpy(char const *s1, char const *s2)
-{
-	char	*newstring;
-	size_t counter;
-	size_t s1_len;
-	size_t s2_len;
-
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
 	counter = 0;
@@ -52,7 +38,8 @@ char *ft_strcpy(char const *s1, char const *s2)
 		counter++;
 	}
 	newstring[counter] = '\0';
-	return(newstring);
+	free((char *)s1);
+	return (newstring);
 }
 
 char	*ft_strdup(const char *s)
