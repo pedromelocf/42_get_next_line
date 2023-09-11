@@ -6,16 +6,16 @@ static char *ft_cut_buffer(char *total_buffer);
 
 char	*get_next_line(int fd)
 {
-	static char *total_buffer;
+	static char *total_buffer[1024];
 	char	*actual_line;
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
-	total_buffer = ft_read_fd(fd, total_buffer);
-	if(total_buffer == NULL)
+	total_buffer[fd] = ft_read_fd(fd, total_buffer[fd]);
+	if(total_buffer[fd] == NULL)
 		return(NULL);
-	actual_line = ft_new_line(total_buffer);
-	total_buffer = ft_cut_buffer(total_buffer);
+	actual_line = ft_new_line(total_buffer[fd]);
+	total_buffer[fd] = ft_cut_buffer(total_buffer[fd]);
 	return (actual_line);
 }
 
