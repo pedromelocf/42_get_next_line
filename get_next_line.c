@@ -6,14 +6,15 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:19 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/11 11:09:42 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/11 14:12:40 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char *ft_read_fd(int fd, char *total_buffer);
-char* ft_cut_buffer(char *total_buffer);
+static char *ft_read_fd(int fd, char *total_buffer);
+static char	*ft_new_line(char const *total_buffer);
+static char *ft_cut_buffer(char *total_buffer);
 
 char	*get_next_line(int fd)
 {
@@ -53,6 +54,31 @@ char *ft_read_fd(int fd, char *total_buffer)
 	}
 	free(buffer_read);
 	return(total_buffer);
+}
+
+char	*ft_new_line(char const *total_buffer)
+{
+	char	*newstring;
+	size_t	counter;
+	size_t	s1_len;
+
+	if (!total_buffer)
+		return (NULL);
+	counter = 0;
+	s1_len = 0;
+	while (total_buffer[s1_len] != '\n' && total_buffer[s1_len] != '\0')
+		s1_len++;
+	newstring = (char *)malloc(sizeof(char) * s1_len + 2);
+	if (newstring == NULL)
+		return (NULL);
+	while (counter < s1_len)
+	{
+		newstring[counter] = total_buffer[counter];
+		counter++;
+	}
+	newstring[s1_len] = '\n';
+	newstring[s1_len + 1] = '\0';
+	return (newstring);
 }
 
 char* ft_cut_buffer(char *total_buffer)

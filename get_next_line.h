@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:44 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/11 11:11:45 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/11 14:13:14 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <unistd.h>
 
 char	*ft_join_buf(char const *s1, char const *s2);
-char	*ft_new_line(char const *total_buffer);
 char	*ft_strdup(const char *s);
 char	*ft_strchr(const char *s, int c);
 char	*get_next_line(int fd);

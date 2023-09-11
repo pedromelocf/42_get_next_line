@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:17 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/11 11:12:05 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/11 14:11:07 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,6 @@ char	*ft_join_buf(char const *s1, char const *s2)
 	}
 	newstring[counter] = '\0';
 	free((char *)s1);
-	return (newstring);
-}
-
-char	*ft_new_line(char const *total_buffer)
-{
-	char	*newstring;
-	size_t	counter;
-	size_t	s1_len;
-
-	if (!total_buffer)
-		return (NULL);
-	counter = 0;
-	s1_len = 0;
-	while (total_buffer[s1_len] != '\n' && total_buffer[s1_len] != '\0')
-		s1_len++;
-	newstring = (char *)malloc(sizeof(char) * s1_len + 2);
-	if (newstring == NULL)
-		return (NULL);
-	while (counter < s1_len)
-	{
-		newstring[counter] = total_buffer[counter];
-		counter++;
-	}
-	newstring[s1_len] = '\n';
-	newstring[s1_len + 1] = '\0';
 	return (newstring);
 }
 
