@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:17 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/08 14:13:16 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:12:05 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ char	*ft_join_buf(char const *s1, char const *s2)
 		s1 = ft_strdup("");
 	if (!s1 || !s2)
 		return (NULL);
-	s1_len = strlen(s1);
-	s2_len = strlen(s2);
+	s1_len = ft_strlen(s1);
+	s2_len = ft_strlen(s2);
 	counter = 0;
 	newstring = (char *)malloc(sizeof(char) * s1_len + s2_len + 1);
 	if (newstring == NULL)
@@ -41,31 +41,29 @@ char	*ft_join_buf(char const *s1, char const *s2)
 	free((char *)s1);
 	return (newstring);
 }
-char	*ft_new_line(char const *s1, char const *s2)
+
+char	*ft_new_line(char const *total_buffer)
 {
 	char	*newstring;
 	size_t	counter;
 	size_t	s1_len;
-	size_t	s2_len;
 
-	s1_len = strlen(s1);
-	while(s2[s2_len] && s2[s2_len] != '\n')
-		s2_len++;
+	if (!total_buffer)
+		return (NULL);
 	counter = 0;
-	newstring = (char *)malloc(sizeof(char) * s1_len + s2_len + 2);
+	s1_len = 0;
+	while (total_buffer[s1_len] != '\n' && total_buffer[s1_len] != '\0')
+		s1_len++;
+	newstring = (char *)malloc(sizeof(char) * s1_len + 2);
 	if (newstring == NULL)
 		return (NULL);
-	while (counter < s1_len + s2_len)
+	while (counter < s1_len)
 	{
-		if (counter < s1_len)
-			newstring[counter] = s1[counter];
-		if (counter >= s1_len && counter < s1_len + s2_len)
-			newstring[counter] = s2[counter - s1_len];
+		newstring[counter] = total_buffer[counter];
 		counter++;
 	}
-	newstring[counter] = '\n';
-	newstring[counter + 1] = '\0';
-	free((char *)s1);
+	newstring[s1_len] = '\n';
+	newstring[s1_len + 1] = '\0';
 	return (newstring);
 }
 
@@ -96,8 +94,10 @@ char	*ft_strchr(const char *s, int c)
 	size_t	i;
 	size_t	s_len;
 
+	if (s == NULL)
+		return (NULL);
 	i = 0;
-	s_len = strlen(s);
+	s_len = ft_strlen(s);
 	while (i < s_len)
 	{
 		if (s[i] == (unsigned char)c)
@@ -107,4 +107,14 @@ char	*ft_strchr(const char *s, int c)
 	if (c == 0)
 		return ((char *)&s[i]);
 	return (NULL);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	int	counter;
+
+	counter = 0;
+	while (s[counter])
+		counter++;
+	return (counter);
 }

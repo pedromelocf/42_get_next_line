@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:19 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/08 14:28:47 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:09:42 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,29 @@
 char *ft_read_fd(int fd, char *total_buffer);
 char* ft_cut_buffer(char *total_buffer);
 
+char	*get_next_line(int fd)
+{
+	static char *total_buffer;
+	char	*actual_line;
+
+	if (BUFFER_SIZE <= 0 || fd < 0)
+		return (NULL);
+	total_buffer = ft_read_fd(fd, total_buffer);
+	if(total_buffer == NULL)
+		return(NULL);
+	actual_line = ft_new_line(total_buffer);
+	total_buffer = ft_cut_buffer(total_buffer);
+	return (actual_line);
+}
+
 char *ft_read_fd(int fd, char *total_buffer)
 {
 	char *buffer_read;
 	size_t bytes_read;
 
 	buffer_read = malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (buffer_read == NULL)
+		return (NULL);
 	bytes_read = 1;
 	while (!(ft_strchr(total_buffer, '\n')) && (bytes_read != 0))
 	{
@@ -31,6 +48,7 @@ char *ft_read_fd(int fd, char *total_buffer)
 			free(total_buffer);
 			return(NULL);
 		}
+		buffer_read[bytes_read] = '\0';
 		total_buffer = ft_join_buf(total_buffer, buffer_read);
 	}
 	free(buffer_read);
@@ -61,22 +79,4 @@ char* ft_cut_buffer(char *total_buffer)
 	temp[j] = '\0';
 	free(total_buffer);
 	return(temp);
-}
-
-char	*get_next_line(int fd)
-{
-	static char *total_buffer;
-	char	*actual_line;
-
-	if (BUFFER_SIZE <= 0 || fd < 0)
-		return (NULL);
-	if (total_buffer == NULL)
-		total_buffer = ft_strdup("");
-	total_buffer = ft_read_fd(fd, total_buffer);
-	if(total_buffer == NULL)
-		return(NULL);
-	actual_line = ft_strdup("");
-	actual_line = ft_new_line(actual_line, total_buffer);
-	total_buffer = ft_cut_buffer(total_buffer);
-	return (actual_line);
 }
