@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:17 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/11 18:19:19 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/12 13:58:07 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*ft_join_buf(char const *s1, char const *s2)
 	return (joined_string);
 }
 
-char *ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*newstring;
 	size_t	counter;
@@ -102,7 +102,7 @@ char	*ft_strchr(const char *s, int c)
 
 size_t	ft_strlen(const char *s)
 {
-	int	counter;
+	size_t	counter;
 
 	counter = 0;
 	while (s[counter])
