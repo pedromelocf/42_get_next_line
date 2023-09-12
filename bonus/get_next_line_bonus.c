@@ -1,28 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/09/12 10:37:01 by pmelo-ca          #+#    #+#             */
+/*   Updated: 2023/09/12 10:37:07 by pmelo-ca         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line_bonus.h"
 
-static char *ft_read_fd(int fd, char *total_buffer);
+static char	*ft_read_fd(int fd, char *total_buffer);
 static char	*ft_new_line(char const *total_buffer);
-static char *ft_cut_buffer(char *total_buffer);
+static char	*ft_cut_buffer(char *total_buffer);
 
 char	*get_next_line(int fd)
 {
-	static char *total_buffer[1024];
-	char	*actual_line;
+	static char	*total_buffer[1024];
+	char		*actual_line;
 
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	total_buffer[fd] = ft_read_fd(fd, total_buffer[fd]);
-	if(total_buffer[fd] == NULL)
-		return(NULL);
+	if (total_buffer[fd] == NULL)
+		return (NULL);
 	actual_line = ft_new_line(total_buffer[fd]);
 	total_buffer[fd] = ft_cut_buffer(total_buffer[fd]);
 	return (actual_line);
 }
 
-char *ft_read_fd(int fd, char *total_buffer)
+char	*ft_read_fd(int fd, char *total_buffer)
 {
-	char *buffer_read;
-	size_t bytes_read;
+	char	*buffer_read;
+	size_t	bytes_read;
 
 	buffer_read = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (buffer_read == NULL)
@@ -35,13 +47,13 @@ char *ft_read_fd(int fd, char *total_buffer)
 		{
 			free(buffer_read);
 			free(total_buffer);
-			return(NULL);
+			return (NULL);
 		}
 		buffer_read[bytes_read] = '\0';
 		total_buffer = ft_join_buf(total_buffer, buffer_read);
 	}
 	free(buffer_read);
-	return(total_buffer);
+	return (total_buffer);
 }
 
 char	*ft_new_line(char const *total_buffer)
@@ -69,11 +81,11 @@ char	*ft_new_line(char const *total_buffer)
 	return (newstring);
 }
 
-char* ft_cut_buffer(char *total_buffer)
+char	*ft_cut_buffer(char *total_buffer)
 {
-	int i;
-	int j;
-	char *temp;
+	int		i;
+	int		j;
+	char	*temp;
 
 	i = 0;
 	while (total_buffer[i] && total_buffer[i] != '\n')
@@ -81,16 +93,16 @@ char* ft_cut_buffer(char *total_buffer)
 	if (!total_buffer[i])
 	{
 		free(total_buffer);
-		return(NULL);
+		return (NULL);
 	}
 	temp = (char *)malloc(sizeof(char) * (strlen(total_buffer) - i + 1));
 	if (!temp)
-		return(NULL);
+		return (NULL);
 	i++;
 	j = 0;
 	while (total_buffer[i])
 		temp[j++] = total_buffer[i++];
 	temp[j] = '\0';
 	free(total_buffer);
-	return(temp);
+	return (temp);
 }
