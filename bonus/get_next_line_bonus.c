@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 10:37:01 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/12 14:07:09 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/12 14:58:11 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_next_line(int fd)
 char	*ft_read_fd(int fd, char *total_buffer)
 {
 	char	*buffer_read;
-	size_t	bytes_read;
+	int		bytes_read;
 
 	buffer_read = malloc(sizeof(char) * BUFFER_SIZE + 1);
 	if (buffer_read == NULL)
@@ -43,7 +43,7 @@ char	*ft_read_fd(int fd, char *total_buffer)
 	while (!(ft_strchr(total_buffer, '\n')) && (bytes_read != 0))
 	{
 		bytes_read = read(fd, buffer_read, BUFFER_SIZE);
-		if (bytes_read <= 0 || bytes_read != BUFFER_SIZE)
+		if (bytes_read == -1)
 		{
 			free(buffer_read);
 			free(total_buffer);
