@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:19 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/13 12:24:51 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/14 10:43:01 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ char	*get_next_line(int fd)
 	if (BUFFER_SIZE <= 0 || fd < 0)
 		return (NULL);
 	total_buffer = ft_read_fd(fd, total_buffer);
-	if (total_buffer == NULL)
+	if (total_buffer == NULL || total_buffer[0] == '\0')
 		return (NULL);
+	actual_line = NULL;
 	actual_line = ft_new_line(total_buffer);
 	total_buffer = ft_cut_buffer(total_buffer);
 	return (actual_line);
@@ -65,10 +66,8 @@ char	*ft_new_line(char const *total_buffer)
 	if (!total_buffer)
 		return (NULL);
 	counter = 0;
-	s1_len = 0;
-	while (total_buffer[s1_len] != '\n' && total_buffer[s1_len] != '\0')
-		s1_len++;
-	newstring = (char *)malloc(sizeof(char) * s1_len + 2);
+	s1_len = ft_strlen(total_buffer);
+	newstring = (char *)malloc(sizeof(char) * s1_len + 1);
 	if (newstring == NULL)
 		return (NULL);
 	while (counter < s1_len)
@@ -76,8 +75,7 @@ char	*ft_new_line(char const *total_buffer)
 		newstring[counter] = total_buffer[counter];
 		counter++;
 	}
-	newstring[s1_len] = '\n';
-	newstring[s1_len + 1] = '\0';
+	newstring[s1_len] = '\0';
 	return (newstring);
 }
 
