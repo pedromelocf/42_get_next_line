@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:19 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/14 10:43:01 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/14 11:48:04 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,16 +66,27 @@ char	*ft_new_line(char const *total_buffer)
 	if (!total_buffer)
 		return (NULL);
 	counter = 0;
-	s1_len = ft_strlen(total_buffer);
-	newstring = (char *)malloc(sizeof(char) * s1_len + 1);
+	s1_len = 0;
+	while (total_buffer[s1_len] != '\n' && total_buffer[s1_len] != '\0')
+		s1_len++;
+	if (total_buffer[s1_len] == '\n')
+	{
+		newstring = (char *)malloc(sizeof(char) * s1_len + 2);
+		newstring[s1_len] = '\n';
+		newstring[s1_len + 1] = '\0';
+	}
+	if (total_buffer[s1_len] == '\0')
+	{
+		newstring = (char *)malloc(sizeof(char) * s1_len + 1);
+		newstring[s1_len] = '\0';
+	}
 	if (newstring == NULL)
 		return (NULL);
-	while (counter < s1_len)
+	while (counter < s1_len )
 	{
 		newstring[counter] = total_buffer[counter];
 		counter++;
 	}
-	newstring[s1_len] = '\0';
 	return (newstring);
 }
 
