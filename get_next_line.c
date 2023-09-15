@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:19 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/14 14:49:16 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/15 10:17:26 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_read_fd(int fd, char *total_buffer)
 		if (bytes_read <= 0)
 		{
 			free(buffer_read);
-			return(total_buffer);
+			return (total_buffer);
 		}
 		buffer_read[bytes_read] = '\0';
 		total_buffer = ft_join_buf(total_buffer, buffer_read);
@@ -70,17 +70,7 @@ char	*ft_new_line(char const *total_buffer)
 	s1_len = 0;
 	while (total_buffer[s1_len] != '\n' && total_buffer[s1_len] != '\0')
 		s1_len++;
-	if (total_buffer[s1_len] == '\n')
-	{
-		newstring = (char *)malloc(sizeof(char) * s1_len + 2);
-		newstring[s1_len] = '\n';
-		newstring[s1_len + 1] = '\0';
-	}
-	if (total_buffer[s1_len] == '\0')
-	{
-		newstring = (char *)malloc(sizeof(char) * s1_len + 1);
-		newstring[s1_len] = '\0';
-	}
+	newstring = (char *)malloc(sizeof(char) * s1_len + 2);
 	if (newstring == NULL)
 		return (NULL);
 	while (counter < s1_len)
@@ -88,6 +78,9 @@ char	*ft_new_line(char const *total_buffer)
 		newstring[counter] = total_buffer[counter];
 		counter++;
 	}
+	if (total_buffer[s1_len] == '\n')
+		newstring[s1_len++] = '\n';
+	newstring[s1_len] = '\0';
 	return (newstring);
 }
 
