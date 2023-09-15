@@ -6,7 +6,7 @@
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 12:04:19 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/15 10:17:26 by pmelo-ca         ###   ########.fr       */
+/*   Updated: 2023/09/15 14:16:20 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_next_line(int fd)
 	return (actual_line);
 }
 
-char	*ft_read_fd(int fd, char *total_buffer)
+static char	*ft_read_fd(int fd, char *total_buffer)
 {
 	char	*buffer_read;
 	int		bytes_read;
@@ -49,6 +49,11 @@ char	*ft_read_fd(int fd, char *total_buffer)
 		if (bytes_read <= 0)
 		{
 			free(buffer_read);
+			if (bytes_read == -1)
+			{
+				free(total_buffer);
+				return (NULL);
+			}
 			return (total_buffer);
 		}
 		buffer_read[bytes_read] = '\0';
@@ -58,7 +63,7 @@ char	*ft_read_fd(int fd, char *total_buffer)
 	return (total_buffer);
 }
 
-char	*ft_new_line(char const *total_buffer)
+static char	*ft_new_line(char const *total_buffer)
 {
 	char	*newstring;
 	size_t	counter;
@@ -84,7 +89,7 @@ char	*ft_new_line(char const *total_buffer)
 	return (newstring);
 }
 
-char	*ft_cut_buffer(char *total_buffer)
+static char	*ft_cut_buffer(char *total_buffer)
 {
 	int		i;
 	int		j;

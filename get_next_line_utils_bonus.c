@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: pmelo-ca <pmelo-ca@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/12 10:37:14 by pmelo-ca          #+#    #+#             */
-/*   Updated: 2023/09/12 10:37:47 by pmelo-ca         ###   ########.fr       */
+/*   Created: 2023/08/22 12:04:17 by pmelo-ca          #+#    #+#             */
+/*   Updated: 2023/09/15 14:12:44 by pmelo-ca         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*ft_join_buf(char const *s1, char const *s2)
 
 	if (!s1)
 		s1 = ft_strdup("");
-	if (!s2)
+	if (!s2 && s1)
 	{
 		free((char *)s1);
 		return (NULL);
@@ -102,7 +102,7 @@ char	*ft_strchr(const char *s, int c)
 
 size_t	ft_strlen(const char *s)
 {
-	int	counter;
+	size_t	counter;
 
 	counter = 0;
 	while (s[counter])
