@@ -1,5 +1,5 @@
 <div align="center">
-  <h1> ft_get_next_line </h1>
+  <h1> Get_Next_Line </h1>
   <h5> Reading a line from a fd is way too tedious </h5>
 </div>
 
